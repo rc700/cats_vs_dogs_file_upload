@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>Kat or K9</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        function upload_photo() {
+            var form = new FormData($("#uploadForm")[0]);
+            $.ajax({
+                url: '/upload',
+                method: 'post',
+                dataType: 'json',
+                data: form,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    console.log('success');
+                    $('#result').text(result);
+                },
+                error: function(err) {
+                    console.error('error');
+                    console.error(err);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Kat or K9!?</h1>
+    <p>Upload an image and we'll tell you if it's a cat or a dog!</p>
+    <form ref="uploadForm" id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploadFile" />
+    </form>
+    <a href="#" onclick="upload_photo();">Upload!</a>
+    <p>It's a ...</p>
+    <p id="result"></p>
+</body>
+
+</html>
